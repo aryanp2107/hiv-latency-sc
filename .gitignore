@@ -1,0 +1,20 @@
+# Data — never commit (gigabyte single-cell files)
+*.rds
+*.h5ad
+*.h5
+*.mtx
+*.tar.gz
+data/
+*.loom
+
+# Outputs
+*.pdf
+*.png
+_logs/
+run_e2e_*/
+
+# Environment / notebook cruft
+.Rhistory
+.RData
+__pycache__/
+.ipynb_checkpoints/
