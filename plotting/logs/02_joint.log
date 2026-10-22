@@ -1,0 +1,9 @@
+/home/aryan/hiv-latency-sc/plotting/02_filter.py:107: FutureWarning: `__version__` is deprecated, use `importlib.metadata.version('scanpy')` instead
+  "scanpy_version": sc.__version__,
+[02] ATAC joined: 222,192/301,872 cells have ATAC (73.6%)
+[02] dropped 9 samples (94,768 cells); 26 samples, 207,104 cells remain
+[02] joint cut: kept 163,668 rna_pass + 5,327 atac_rescue = 168,995; removed 38,109
+[02]   rescue DEL5 share: 2,275
+[02] removed 5,044 predicted doublets; 163,951 cells remain
+[02] gene filter removed 2,479 genes; 24,051 genes remain
+[02] wrote 02_filtered.h5ad: 163,951 cells x 24,051 genes (all reconcile)

@@ -24,8 +24,8 @@ def load_one_sample(row):
     adata = sc.read_10x_h5(sample_matrix_path(row[config.SAMPLE_DIR_COL]))
     adata.var_names_make_unique()
 
-    adata.obs["sample"] = row["uniqID"]
-    adata.obs["batch"] = row["Client Sample ID"]
+    adata.obs["sample"] = row["UniqID"]
+    adata.obs["animal"] = row["Client Sample ID"]
     adata.obs["week"] = row['Wk']
     adata.obs["group"] = row["Group"]
 
@@ -33,6 +33,9 @@ def load_one_sample(row):
 
     #making barcodes gloablly unique before merging
     adata.obs_names = row["UniqID"] + "_" + adata.obs_names
+
+    if config.DEV and adata.n_obs > config.DEV_MAX_CELLS:
+        sc.pp.subsample(adata, n_obs=config.DEV_MAX_CELLS, random_state=config.SEED)
     return adata
 
 def main():
@@ -43,15 +46,33 @@ def main():
 
     meta = pd.read_csv(config.META_PATH)
     assert len(meta) == 35, f"expected 35 samples, got {len(meta)}"
-    print(f"[01] sample sheet: len{meta} samples")
 
+    # deriving Batch from Admera submission plate (06 -> 1, 07 -> 2) 
+    plate = meta["Admera ID"].str.split("-").str[1]     
+    meta["Batch"] = plate.map({"06": "1", "07": "2"})
+    assert meta["Batch"].notna().all(), \
+        f"unmapped Admera plates: {sorted(plate[meta['Batch'].isna()].unique())}"
+    bc = meta["Batch"].value_counts().to_dict()
+    assert bc == {"1": 24, "2": 11}, f"batch split {bc} != expected 24/11"
+    print(f"[01] batch from Admera plate: {bc}")
+
+    # DEV mode: only load a few samples
+
+    if config.DEV:
+        meta = meta.head(config.DEV_N_SAMPLES)
+        print(f"[01][DEV] subset to {len(meta)} samples, "
+              f"<= {config.DEV_MAX_CELLS} cells each (count checks relaxed)")
+ 
+    print(f"[01] loading {len(meta)} samples")
+
+        
     # loading each sample and checking its count
     per_sample = []
     for _, row in meta.iterrows():
         a = load_one_sample(row)
-        expected = int(row["Num Cells"])
+        expected = int(row["#cells"])
         flag = "" if a.n_obs == expected else f"expected {expected}, got {a.n_obs}"
-        print(f"[01] {row['uniqID']}: {a.n_obs} cells {flag}")
+        print(f"[01] {row['UniqID']}: {a.n_obs} cells {flag}")
         per_sample.append(a)
 
     # concatenating all samples into one AnnData object
@@ -59,13 +80,14 @@ def main():
     adata.obs_names_make_unique()
     print(f"[01] concatenated: {adata.n_obs:,} cells x {adata.n_vars:,} genes")
 
-    # the grand total must equal to the sum of the sheet's counts
-    expected_total = int(meta["num_cells"].sum())
-    assert adata.n_obs == expected_total, \
-        f"total {adata.n_obs} cells, expected {expected_total}"
+    # grounding: grand total == sum of sheet #cells (skip in DEV — deliberately subsampled)
+    if not config.DEV:
+        expected_total = int(meta["#cells"].sum())
+        assert adata.n_obs == expected_total, \
+            f"total {adata.n_obs} cells, expected {expected_total}"
 
     # flagging macaque mitochondrial genes
-    mito_in = [g for g in adata.var_names if g in adata.var_names]
+    mito_in = [g for g in config.MITO_GENES if g in adata.var_names]
     missing = [g for g in config.MITO_GENES if g not in adata.var_names]
     assert mito_in, "No mitochondrial genes foound - check the gene names in the matrix"
     if missing:
@@ -75,6 +97,7 @@ def main():
 
     # computing QC metrics
     sc.pp.calculate_qc_metrics(adata, qc_vars=["mt"], inplace=True, percent_top=None)
+    print(f"[01] median pct_counts_mt = {adata.obs['pct_counts_mt'].median():.2f}%")
 
     adata.uns["stage_01"] ={
         "scanpy": sc.__version__, "anndata": ad.__version__,

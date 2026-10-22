@@ -8,7 +8,7 @@ from pathlib import Path
 # paths
 BASE_DIR    = Path("/scratch/maid/DP2_PBMC")       
 RAW_DIR     = BASE_DIR / "PBMC_rawData"            
-META_PATH   = BASE_DIR / "metadata.csv"      
+META_PATH = BASE_DIR / "PBMC_Analysis" / "MetaData.csv"  
 
 
 SAMPLE_DIR_COL = "UniqID"
@@ -18,8 +18,14 @@ DEV = os.environ.get("SC_DEV", "0") == "1"
 DEV_N_SAMPLES = 3
 DEV_MAX_CELLS = 3000    
 
-CHECKPOINTS = BASE_DIR / "checkpoints_dev" if DEV else "checkpoints"      
+CHECKPOINTS = BASE_DIR / ("checkpoints_dev" if DEV else "checkpoints")  
 CHECKPOINTS.mkdir(parents=True, exist_ok=True)
+
+ATAC_QC_CSV          = BASE_DIR / "PBMC_Analysis" / "atac_qc_per_cell.csv"
+TSS_MIN              = 3.5    # ATAC good-nucleus floor (from tss_vs_mito diagnostic)
+NUC_MAX              = 2.0    # over-digestion ceiling (rarely fires)
+MIN_GENES_PERMISSIVE = 100    # rescue gene floor for ATAC-sound quiescent cells
+MITO_MAX_RESCUE      = 15    
 
 SEED = 0       
 
@@ -39,6 +45,7 @@ MITO_GENES = [
     "COX1", "COX2", "COX3", "ATP6", "ATP8", "CYTB",
 ]
 
+
 # downstream params
 BATCH_KEY = "batch"   
 N_HVG     = 2000      
@@ -46,4 +53,4 @@ N_PCS     = 30
 
 SAMPLE_COL = "sample"
 MIN_CELLS_PER_GENE = 3
-DROP_MITO_GENES = TRUE
+DROP_MITO_GENES = True

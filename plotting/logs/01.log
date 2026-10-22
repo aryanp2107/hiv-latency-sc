@@ -1,0 +1,4 @@
+a = sc.read_h5ad(config.CHECKPOINTS / '01_qc.h5ad')
+print(a.uns['stage_01'])
+"
+{'anndata': '0.13.4', 'missing_mito_genes': array([], dtype=float64), 'mito_genes': 13, 'n_cells': 301872, 'n_samples': 35, 'scanpy': '1.12.4'}

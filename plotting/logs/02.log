@@ -1,0 +1,45 @@
+/home/aryan/hiv-latency-sc/plotting/02_filter.py:84: FutureWarning: `__version__` is deprecated, use `importlib.metadata.version('scanpy')` instead
+  'scanpy_version': sc.__version__,
+[02] dropped 9 samples (94,768 cells); 26 samples, 207,104 cells remain
+[02] per-cell cut removed 43,436; 163,668 cells remain
+[02] removed 4,744 predicted doublets; 158,924 cells remain
+[02] the gene filter removed 2,500 genes; 24,030 genes remain
+[02] wrote 02_filtered.h5ad with 158,924 cells and 24,030 genes
+
+
+sample
+DEL5_Wk304    21.0
+DEL5_Wk192    37.7
+DEL5_Wk0      44.7
+PZB_Wk0       64.3
+KI6_Wk192     70.0
+DEL5_Wk16     70.7
+DEAB_Wk192    76.6
+DEAB_Wk0      76.9
+DEG2_Wk304    77.4
+DEAB_Wk4      79.0
+DEG2_Wk192    82.0
+PZB_Wk4       82.6
+DEAB_Wk304    83.5
+T623_Wk128    85.9
+T623_Wk8      86.3
+PZB_Wk72      86.8
+DEAB_Wk72     87.3
+DEAB_Wk136    88.0
+DEL5_Wk72     88.2
+T623_Wk64     90.0
+DEAB_Wk16     90.1
+PZB_Wk136     91.2
+DEG2_Wk0      92.2
+DEG2_Wk16     92.7
+DEG2_Wk72     93.8
+T623_Wk0      96.8
+KI6_Wk0        NaN
+KI6_Wk16       NaN
+KI6_Wk304      NaN
+KI6_Wk72       NaN
+KPN_Wk0        NaN
+KPN_Wk16       NaN
+KPN_Wk192      NaN
+KPN_Wk240      NaN
+KPN_Wk72       NaN
