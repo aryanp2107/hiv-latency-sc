@@ -1,0 +1,30 @@
+[05] 26 kept samples; consensus = /scratch/maid/DP2_PBMC/checkpoints/consensus_peaks.bed
+[05] (1/26) DEAB_Wk0: imported 56,822 | matched 3,071/3,078
+[05] (2/26) DEAB_Wk136: imported 54,959 | matched 9,121/9,145
+[05] (3/26) DEAB_Wk16: imported 61,480 | matched 8,557/8,571
+[05] (4/26) DEAB_Wk192: imported 68,953 | matched 9,983/10,067
+[05] (5/26) DEAB_Wk304: imported 64,442 | matched 9,111/9,197
+[05] (6/26) DEAB_Wk4: imported 57,595 | matched 2,972/3,003
+[05] (7/26) DEAB_Wk72: imported 51,495 | matched 6,272/6,283
+[05] (8/26) DEG2_Wk0: imported 65,671 | matched 9,478/9,541
+[05] (9/26) DEG2_Wk16: imported 65,171 | matched 7,725/7,800
+[05] (10/26) DEG2_Wk192: imported 64,567 | matched 7,654/7,708
+[05] (11/26) DEG2_Wk304: imported 65,645 | matched 8,125/8,183
+[05] (12/26) DEG2_Wk72: imported 60,143 | matched 8,846/8,864
+[05] (13/26) DEL5_Wk0: imported 74,160 | matched 6,677/6,684
+[05] (14/26) DEL5_Wk16: imported 67,932 | matched 3,779/3,781
+[05] (15/26) DEL5_Wk192: imported 70,161 | matched 2,960/2,969
+[05] (16/26) DEL5_Wk304: imported 78,135 | matched 3,701/3,708
+[05] (17/26) DEL5_Wk72: imported 67,733 | matched 5,652/5,659
+[05] (18/26) KI6_Wk192: imported 71,072 | matched 2,439/2,441
+[05] (19/26) PZB_Wk0: imported 17,570 | matched 3,757/3,768
+[05] (20/26) PZB_Wk136: imported 15,351 | matched 5,979/5,990
+[05] (21/26) PZB_Wk4: imported 21,421 | matched 7,746/7,764
+[05] (22/26) PZB_Wk72: imported 57,540 | matched 4,729/4,744
+[05] (23/26) T623_Wk0: imported 54,239 | matched 6,451/6,532
+[05] (24/26) T623_Wk128: imported 32,839 | matched 5,751/5,781
+[05] (25/26) T623_Wk64: imported 25,113 | matched 6,119/6,171
+[05] (26/26) T623_Wk8: imported 12,840 | matched 6,475/6,519
+[05] ATAC matrix: 163,130 cells x 231,794 peaks
+[05] matched 163,130 / 163,951 kept RNA cells (99.5%)
+[05] wrote 05_atac_peaks.h5ad: 163,130 x 231,794
